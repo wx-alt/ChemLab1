@@ -1,0 +1,948 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="ChemLab1.SiteMaster" %>
+
+<!DOCTYPE html>
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%: Page.Title %> - ChemLab</title>
+
+    <asp:PlaceHolder runat="server">
+        <%: Scripts.Render("~/bundles/modernizr") %>
+    </asp:PlaceHolder>
+
+    <webopt:BundleReference runat="server" Path="~/Content/css" />
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
+    <!-- Embedded all CSS from templatemo-scholar.css, owl.css, and Bootstrap -->
+    <style>
+        /* Google Fonts */
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900");
+
+        /* Reset CSS */
+        html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, div
+        pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q,
+        s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li,
+        figure, header, nav, section, article, aside, footer, figcaption {
+          margin: 0;
+          padding: 0;
+          border: 0;
+          outline: 0;
+        }
+
+        .clearfix:after {
+          content: ".";
+          display: block;
+          clear: both;
+          visibility: hidden;
+          line-height: 0;
+          height: 0;
+        }
+
+        ul, li {
+          padding: 0;
+          margin: 0;
+          list-style: none;
+        }
+
+        * {
+          box-sizing: border-box;
+        }
+
+        html, body {
+          font-family: 'Poppins', sans-serif;
+          -ms-text-size-adjust: 100%;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+        }
+
+        a {
+          text-decoration: none !important;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+          color: #1e1e1e;
+          margin-top: 0px;
+          margin-bottom: 0px;
+          font-weight: 700;
+        }
+
+        p {
+          font-size: 14px;
+          line-height: 28px;
+          color: #4a4a4a;
+        }
+
+        img {
+          width: 100%;
+          overflow: hidden;
+        }
+
+        /* Global Styles */
+        ::selection {
+          background: #7a6ad8;
+          color: #fff;
+        }
+
+        ::-moz-selection {
+          background: #7a6ad8;
+          color: #fff;
+        }
+
+        .section {
+          padding-top: 30px;
+          margin-top: 120px;
+        }
+
+        .section-heading {
+          margin-bottom: 60px;
+        }
+
+        .section-heading h2 {
+          font-size: 36px;
+          font-weight: 600;
+          text-transform: capitalize;
+          margin: 20px 0;
+          line-height: 44px;
+        }
+
+        .section-heading h2 em {
+          color: #7a6ad8;
+          font-style: normal;
+        }
+
+        .section-heading h6 {
+          color: #7a6ad8;
+          font-size: 14px;
+          text-transform: uppercase;
+          font-weight: 600;
+        }
+
+        .main-button a {
+          display: inline-block;
+          background-color: #fff;
+          color: #7a6ad8;
+          font-size: 14px;
+          font-weight: 500;
+          height: 40px;
+          line-height: 40px;
+          padding: 0px 25px;
+          border-radius: 20px;
+          transition: all .3s;
+        }
+
+        .main-button a:hover {
+          background-color: #7a6ad8;
+          color: #fff;
+        }
+
+        /* Header Styles */
+        .background-header {
+          background-color: #7a6ad8 !important;
+          border-radius: 0px 0px 25px 25px;
+          height: 80px!important;
+          position: fixed!important;
+          top: 0!important;
+          left: 0;
+          right: 0;
+          box-shadow: 0px 0px 10px rgba(0,0,0,0.15)!important;
+          transition: all .5s ease 0s;
+        }
+
+        .header-area {
+          position: absolute;
+          background-color: transparent;
+          top: 40px;
+          left: 0;
+          right: 0;
+          z-index: 100;
+          transition: all .5s ease 0s;
+        }
+
+        .header-area .main-nav {
+          background: transparent;
+          display: flex;
+        }
+
+        .header-area .main-nav .logo h1 {
+          font-size: 36px;
+          text-transform: uppercase;
+          color: #fff;
+          font-weight: 600;
+          margin-right: 20px;
+          padding-right: 20px;
+          border-right: 1px solid rgba(250, 250, 250, 0.3);
+        }
+
+        .background-header .main-nav .logo {
+          margin-top: 18px;
+        }
+
+        .header-area .main-nav ul.nav {
+          border-radius: 0px 0px 25px 25px;
+          flex-basis: 100%;
+          margin-right: 0px;
+          justify-content: right;
+          transition: all 0.3s ease 0s;
+          position: relative;
+          z-index: 999;
+        }
+
+        .header-area .main-nav .nav li {
+          padding-left: 5px;
+          padding-right: 5px;
+          height: 40px;
+          line-height: 40px;
+        }
+
+        .header-area .main-nav .nav li a {
+          display: block;
+          padding-left: 20px;
+          padding-right: 20px;
+          border-radius: 20px;
+          font-weight: 300;
+          font-size: 14px;
+          height: 40px;
+          line-height: 40px;
+          text-transform: capitalize;
+          color: #fff;
+          transition: all 0.4s ease 0s;
+          border: transparent;
+          letter-spacing: .25px;
+        }
+
+        .background-header .main-nav .nav {
+          margin-top: 20px;
+        }
+
+        .background-header .main-nav .nav li {
+          height: 80px;
+          line-height: 80px;
+        }
+
+        .header-area .main-nav .nav li:hover a {
+          opacity: 0.8;
+        }
+
+        .header-area .main-nav .nav li a.active {
+          color: #fff;
+          background-color: rgba(255, 255, 255, 0.10);
+          opacity: 1;
+        }
+
+        /* Services Styles */
+        .services .service-item {
+          position: relative;
+          margin-top: 95px;
+        }
+
+        .services .service-item .icon {
+          width: 190px;
+          height: 190px;
+          display: inline-block;
+          text-align: center;
+          line-height: 190px;
+          background-color: #7a6ad8;
+          border-radius: 50%;
+          position: absolute;
+          right: 0;
+          top: -95px;
+        }
+
+        .services .service-item .icon img {
+          max-width: 86px;
+          transition: all .2s;
+        }
+
+        .services .service-item:hover .icon img {
+          margin-top: -10px;
+        }
+
+        .services .service-item .main-content {
+          border-radius: 25px;
+          padding: 80px 30px 50px 30px;
+          background-color: #f1f0fe;
+          margin-bottom: 30px;
+          margin-right: 80px;
+          transition: all .4s;
+        }
+
+        .services .service-item h4 {
+          font-size: 22px;
+          font-weight: 600;
+          margin-bottom: 15px;
+          line-height: 30px;
+        }
+
+        .services .service-item p {
+          color: #4a4a4a;
+          margin-bottom: 25px;
+        }
+
+        /* About Us Styles */
+        .about-us {
+          position: relative;
+          padding: 0px;
+          margin-top: 130px;
+        }
+
+        .about-us:before {
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          right: 0;
+          z-index: -1;
+          width: 84%;
+          height: 100%;
+          background-color: #f1f0fe;
+          content: '';
+          border-top-left-radius: 500px;
+          border-bottom-left-radius: 500px;
+        }
+
+        .accordion {
+          margin-top: -40px;
+          margin-bottom: -40px;
+          background-color: #7a6ad8;
+          border-radius: 40px;
+          padding: 80px 50px 50px 50px;
+        }
+
+        .accordion-item {
+          background-color: #fff;
+          border-radius: 40px !important;
+          margin-bottom: 30px;
+          border: none;
+        }
+
+        .accordion-item .accordion-button {
+          outline: none;
+          box-shadow: none;
+          border-radius: 40px !important;
+        }
+
+        .accordion-button:not(.collapsed) {
+          color: #7a6ad8;
+          background-color: #fff;
+        }
+
+        h2.accordion-header button {
+          padding: 15px 25px;
+          font-family: 'Poppins';
+          font-size: 16px;
+          font-weight: 600;
+        }
+
+        .accordion-button::after {
+          font-size: 18px;
+          font-weight: 500;
+          background-image: none;
+          content: '+';
+          width: 30px;
+          height: 30px;
+          display: inline-block;
+          text-align: center;
+          line-height: 30px;
+          border-radius: 50%;
+          background-color: #7a6ad8;
+          color: #fff;
+        }
+
+        .accordion-button:not(.collapsed)::after {
+          background-image: none;
+          line-height: 32px;
+          content: '-';
+        }
+
+        .accordion-body {
+          padding: 0px 25px 30px 25px;
+          font-size: 14px;
+          line-height: 28px;
+          color: #4a4a4a;
+        }
+
+        .about-us .section-heading {
+          margin-left: 60px;
+          margin-bottom: 0px;
+        }
+
+        .about-us .section-heading .main-button {
+          margin-top: 50px;
+        }
+
+        /* Courses/Events Filter Styles */
+        .event_filter {
+          text-align: center;
+          background-color: #f1f0fe;
+          border-radius: 50px;
+          padding: 15px 40px;
+          list-style: none;
+          margin: 0 auto 70px;
+          max-width: max-content;
+        }
+
+        .event_filter li {
+          display: inline-block;
+          margin: 0px 20px;
+        }
+
+        .event_filter li a {
+          font-size: 14px;
+          font-weight: 500;
+          color: #1e1e1e;
+          transition: all .3s;
+        }
+
+        .event_filter li a.is_active,
+        .event_filter li a:hover {
+          color: #7a6ad8;
+        }
+
+        /* Events Item Styles */
+        .events_item {
+          background-color: #f1f0fe;
+          border-radius: 25px;
+          margin-bottom: 30px;
+          position: relative;
+        }
+
+        .events_item .thumb {
+          position: relative;
+          border-radius: 25px;
+          overflow: hidden;
+        }
+
+        .events_item .thumb img {
+          margin-bottom: -5px;
+        }
+
+        .events_item .thumb span.category {
+          position: absolute;
+          left: 30px;
+          top: 30px;
+          font-size: 14px;
+          text-transform: uppercase;
+          color: #7a6ad8;
+          background-color: rgba(250, 250, 250, 0.95);
+          padding: 8px 20px;
+          border-radius: 25px;
+          font-weight: 500;
+          display: inline-block;
+        }
+
+        .events_item .thumb span.price {
+          position: absolute;
+          right: -30px;
+          top: -50px;
+          background-color: rgba(122, 106, 216, 0.95);
+          width: 130px;
+          height: 130px;
+          border-radius: 50%;
+          display: inline-block;
+          transition: all .3s;
+        }
+
+        .events_item .thumb span.price h6 {
+          margin-top: 72px;
+          margin-left: 22px;
+          font-size: 28px;
+          text-transform: uppercase;
+          color: #fff;
+          font-weight: 700;
+        }
+
+        .events_item .down-content {
+          padding: 20px 30px 25px 30px;
+        }
+
+        .events_item .down-content span.author {
+          color: #7a6ad8;
+          font-size: 15px;
+          display: inline-block;
+          margin-bottom: 6px;
+        }
+
+        .events_item .down-content h4 {
+          font-size: 22px;
+          font-weight: 600;
+          transition: all .3s;
+        }
+
+        .events_item:hover .down-content h4 {
+          color: #7a6ad8;
+        }
+
+        .events_item:hover .thumb span.price {
+          transform: scale(1.2);
+        }
+
+        /* Owl Carousel Styles */
+        .owl-carousel {
+          display: none;
+          width: 100%;
+          -webkit-tap-highlight-color: transparent;
+          position: relative;
+          z-index: 1;
+        }
+
+        .owl-carousel .owl-stage {
+          position: relative;
+          -ms-touch-action: pan-Y;
+          touch-action: manipulation;
+          -moz-backface-visibility: hidden;
+        }
+
+        .owl-carousel .owl-stage:after {
+          content: ".";
+          display: block;
+          clear: both;
+          visibility: hidden;
+          line-height: 0;
+          height: 0;
+        }
+
+        .owl-carousel .owl-stage-outer {
+          position: relative;
+          overflow: hidden;
+          -webkit-transform: translate3d(0px, 0px, 0px);
+        }
+
+        .owl-carousel .owl-item {
+          position: relative;
+          min-height: 1px;
+          float: left;
+          -webkit-backface-visibility: hidden;
+          -webkit-tap-highlight-color: transparent;
+          -webkit-touch-callout: none;
+        }
+
+        .owl-carousel .owl-item img {
+          display: block;
+          width: 100%;
+        }
+
+        .owl-carousel .owl-nav.disabled,
+        .owl-carousel .owl-dots.disabled {
+          display: none;
+        }
+
+        .owl-carousel .owl-nav .owl-prev,
+        .owl-carousel .owl-nav .owl-next,
+        .owl-carousel .owl-dot {
+          cursor: pointer;
+          user-select: none;
+        }
+
+        .owl-carousel .owl-nav button.owl-prev,
+        .owl-carousel .owl-nav button.owl-next,
+        .owl-carousel button.owl-dot {
+          background: none;
+          color: inherit;
+          border: none;
+          padding: 0 !important;
+          font: inherit;
+        }
+
+        .owl-carousel.owl-loaded {
+          display: block;
+        }
+
+        .owl-carousel.owl-loading {
+          opacity: 0;
+          display: block;
+        }
+
+        /* Banner Styles */
+        .main-banner {
+          background-image: url(assets/images/banner-bg.jpg);
+          background-position: right bottom;
+          background-repeat: no-repeat;
+          background-size: cover;
+          padding: 170px 0px 120px 0px;
+        }
+
+        .main-banner .item-1 {
+          background-image: url(assets/images/banner-item-01.jpg);
+        }
+
+        .main-banner .item-2 {
+          background-image: url(assets/images/banner-item-02.jpg);
+        }
+
+        .main-banner .item-3 {
+          background-image: url(assets/images/banner-item-03.jpg);
+        }
+
+        .main-banner .item {
+          background-repeat: no-repeat;
+          background-position: center center;
+          background-size: cover;
+          border-radius: 25px;
+          padding: 100px 100px;
+          margin-left: 130px;
+        }
+
+        .main-banner .item span.category {
+          background-color: #7a6ad8;
+          color: #fff;
+          font-size: 14px;
+          text-transform: uppercase;
+          padding: 5px 15px;
+          border-radius: 20px;
+          display: inline-block;
+          margin-bottom: 50px;
+        }
+
+        .main-banner .item h2 {
+          font-size: 48px;
+          font-weight: 700;
+          color: #fff;
+          line-height: 70px;
+          width: 60%;
+          margin-bottom: 40px;
+        }
+
+        .main-banner .item p {
+          color: #fff;
+          width: 65%;
+        }
+
+        .main-banner .item .buttons {
+          display: flex;
+          margin-top: 50px;
+        }
+
+        .main-banner .item .buttons .main-button {
+          margin-right: 30px;
+        }
+
+        .main-banner .item .buttons .main-button a {
+          font-size: 14px;
+          color: #7a6ad8;
+          background-color: #fff;
+          display: inline-block;
+          height: 50px;
+          line-height: 50px;
+          padding: 0px 25px;
+          border-radius: 25px;
+          font-weight: 500;
+        }
+
+        .main-banner .item .buttons .icon-button i {
+          color: #7a6ad8;
+          background-color: #fff;
+          display: inline-block;
+          height: 50px;
+          width: 50px;
+          text-align: center;
+          line-height: 50px;
+          border-radius: 50%;
+          margin-right: 10px;
+          font-size: 16px;
+        }
+
+        .main-banner .item .buttons .icon-button a {
+          color: #fff;
+          font-size: 14px;
+          font-weight: 500;
+        }
+
+        .main-banner .owl-nav {
+          position: absolute;
+          max-width: 1320px;
+          bottom: 23px;
+          left: 0;
+          text-align: right;
+        }
+
+        .main-banner .owl-nav .owl-prev i,
+        .main-banner .owl-nav .owl-next i {
+          width: 50px;
+          height: 50px;
+          line-height: 50px;
+          font-size: 24px;
+          display: inline-block;
+          color: #fff;
+          background-color: rgba(255, 255, 255, 0.2);
+          border-radius: 50%;
+          opacity: 1;
+          transition: all .3s;
+        }
+
+        .main-banner .owl-nav .owl-prev i {
+          position: absolute;
+          bottom: 65px;
+        }
+
+        .main-banner .owl-nav .owl-prev i:hover,
+        .main-banner .owl-nav .owl-next i:hover {
+          opacity: 1;
+          background-color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Footer Styles */
+        footer {
+          margin-top: 150px;
+          position: relative;
+          background-color: #7a6ad8;
+          vertical-align: middle;
+          min-height: 150px;
+          border-radius: 150px 150px 0px 0px;
+        }
+
+        footer p {
+          text-align: center;
+          line-height: 150px;
+          color: #fff;
+          font-weight: 400;
+        }
+
+        footer p a {
+          color: #fff;
+          transition: all .3s;
+          position: relative;
+          z-index: 3;
+        }
+
+        footer p a:hover {
+          opacity: 0.75;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+          .main-banner {
+            padding-top: 100px;
+          }
+          .main-banner .item {
+            padding: 100px 60px 140px 60px;
+            margin-left: 0px;
+            text-align: center;
+          }
+          .main-banner .item h2,
+          .main-banner .item p {
+            width: 100%;
+          }
+          .main-banner .item h2 {
+            font-size: 36px;
+            line-height: 50px;
+          }
+          .about-us::before {
+            display: none;
+          }
+        }
+
+        @media (max-width: 767px) {
+          .header-area {
+            top: 0px;
+          }
+          .main-banner .item {
+            padding: 80px 30px 120px 30px !important;
+          }
+        }
+    </style>
+</head>
+<body>
+    <form runat="server">
+        <asp:ScriptManager runat="server">
+            <Scripts>
+                <asp:ScriptReference Name="MsAjaxBundle" />
+                <asp:ScriptReference Name="jquery" />
+                <asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />
+                <asp:ScriptReference Name="WebUIValidation.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebUIValidation.js" />
+                <asp:ScriptReference Name="MenuStandards.js" Assembly="System.Web" Path="~/Scripts/WebForms/MenuStandards.js" />
+                <asp:ScriptReference Name="GridView.js" Assembly="System.Web" Path="~/Scripts/WebForms/GridView.js" />
+                <asp:ScriptReference Name="DetailsView.js" Assembly="System.Web" Path="~/Scripts/WebForms/DetailsView.js" />
+                <asp:ScriptReference Name="TreeView.js" Assembly="System.Web" Path="~/Scripts/WebForms/TreeView.js" />
+                <asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
+                <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
+                <asp:ScriptReference Name="WebFormsBundle" />
+            </Scripts>
+        </asp:ScriptManager>
+
+        <!-- Main Content -->
+        <div>
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <div class="container">
+                <div class="col-lg-12">
+                    <p>Copyright © 2025 ChemLab. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+    </form>
+
+    <!-- Embedded jQuery, Bootstrap, Owl Carousel, and Isotope from CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js"></script>
+
+    <!-- Embedded custom JavaScript -->
+    <script>
+        // Header scroll effect
+        $(window).scroll(function () {
+            var scroll = $(window).scrollTop();
+            var box = $('.header-area').height();
+            var header = $('header').height();
+
+            if (scroll >= box) {
+                $("header").addClass("background-header");
+            } else {
+                $("header").removeClass("background-header");
+            }
+        });
+
+        // Owl Carousel initialization
+        $(document).ready(function () {
+            if ($('.owl-carousel').length) {
+                $('.owl-carousel').owlCarousel({
+                    items: 1,
+                    loop: true,
+                    dots: false,
+                    nav: true,
+                    autoplay: true,
+                    margin: 30,
+                    responsive: {
+                        0: { items: 1 },
+                        600: { items: 1 },
+                        1000: { items: 1 }
+                    }
+                });
+            }
+        });
+
+        // Isotope filter
+        $(window).on('load', function () {
+            if ($('.event_box').length) {
+                var $container = $('.event_box');
+                $container.isotope({
+                    filter: '*',
+                    animationOptions: {
+                        duration: 750,
+                        easing: 'linear',
+                        queue: false
+                    }
+                });
+
+                $('.event_filter li a').click(function () {
+                    $('.event_filter li a').removeClass('is_active');
+                    $(this).addClass('is_active');
+
+                    var selector = $(this).attr('data-filter');
+                    $container.isotope({
+                        filter: selector,
+                        animationOptions: {
+                            duration: 750,
+                            easing: 'linear',
+                            queue: false
+                        }
+                    });
+                    return false;
+                });
+            }
+        });
+
+        // IMPROVED SCROLL SPY - Update active nav based on scroll position
+        function updateActiveNav() {
+            // Get current page - check both pathname and location
+            var fullPath = window.location.pathname.toLowerCase();
+            var currentPage = fullPath.split('/').pop() || 'default.aspx';
+
+            // Remove all active classes first
+            $('.main-nav .nav li a').removeClass('active');
+
+            // If on Login page (check multiple variations), keep Login highlighted
+            if (currentPage.indexOf('login') !== -1 || fullPath.indexOf('login') !== -1) {
+                $('.main-nav .nav li a[href*="Login"]').addClass('active');
+                return; // Exit early - don't run scroll spy on login page
+            }
+
+            // For Default page, detect current section based on scroll
+            var scrollPos = $(window).scrollTop() + 150;
+            var foundSection = false;
+
+            // Get all elements with IDs (sections)
+            var sections = [];
+            $('[id]').each(function () {
+                var id = $(this).attr('id');
+                if (id && $(this).offset()) {
+                    sections.push({
+                        id: id,
+                        top: $(this).offset().top,
+                        bottom: $(this).offset().top + $(this).outerHeight()
+                    });
+                }
+            });
+
+            // Sort sections by top position
+            sections.sort(function (a, b) { return a.top - b.top; });
+
+            // Find which section we're in
+            for (var i = sections.length - 1; i >= 0; i--) {
+                if (scrollPos >= sections[i].top - 200) {
+                    var sectionId = sections[i].id;
+
+                    // Try to find and activate the corresponding nav link
+                    var $navLink = $('.main-nav .nav li a[href*="#' + sectionId + '"]');
+                    if ($navLink.length) {
+                        $navLink.addClass('active');
+                        foundSection = true;
+                        break;
+                    }
+                }
+            }
+
+            // If at the very top or no section found, activate Home
+            if (!foundSection || scrollPos < 300) {
+                $('.main-nav .nav li a[href="Default.aspx"]:not([href*="#"])').addClass('active');
+            }
+        }
+
+        // Run on scroll (but only if not on Login page)
+        $(window).on('scroll', function () {
+            var currentPage = window.location.pathname.toLowerCase();
+            if (currentPage.indexOf('login') === -1) {
+                updateActiveNav();
+            }
+        });
+
+        // Run on load
+        $(window).on('load', function () {
+            updateActiveNav();
+        });
+
+        // Run on page ready
+        $(document).ready(function () {
+            updateActiveNav();
+        });
+
+        // Smooth scroll
+        $(document).ready(function () {
+            $('a[href*="#"]').on('click', function (e) {
+                var href = $(this).attr('href');
+
+                if (href.indexOf('#') !== -1) {
+                    var parts = href.split('#');
+                    var page = parts[0];
+                    var hash = parts[1];
+
+                    var currentPage = window.location.pathname.split('/').pop();
+
+                    if (page === '' || page === currentPage || page === 'Default.aspx') {
+                        if ($('#' + hash).length) {
+                            e.preventDefault();
+                            $('html, body').animate({
+                                scrollTop: $('#' + hash).offset().top - 80
+                            }, 800);
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
